@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint form </title>
+</head>
+<body>
+    
+    <h2>Please enter the correct data that you want to comply </h2>
+
+    <form action="" method="post">
+        
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="submit complaint">
+
+        
+
+    </form>
+</body>
+</html>

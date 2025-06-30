@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from accounts.models import Profile
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericRelation,GenericForeignKey
+from django.db.models import Q
 
 
 
@@ -75,15 +76,20 @@ class Complaint( TimeStampModel):
     title = models.CharField(max_length=200)
     description = models.TextField()
     vote = models.PositiveIntegerField(default=1)
-    region = models.ForeignKey(Region,on_delete=models.CASCADE,related_name='complaints')
+    region = models.ForeignKey(Region,on_delete=models.CASCADE,related_name='complaints', null=True,blank=True)
+    location  = models.TextField(null=True,blank=True)
+
 
     evidence = GenericRelation(Evidence)   
 
+
+
     class Meta:
         ordering = ['-created_at']
+       
 
     def __str__(self):
-        return f'complaint of {self.citizen.profile.name}'
+        return f'complaint of {self.citizen}' 
     
 
 class ComplaintUpdated(TimeStampModel):
@@ -132,7 +138,7 @@ class EventRegistration(TimeStampModel):
 
 
     def __str__(self):
-        return f'{self.user.password.id}, {self.event.event_date}'
+        return f'{self.user.profile.id}, {self.event.event_date}'
     
 class FeedBack( TimeStampModel):
 

@@ -23,6 +23,7 @@ class Profile(models.Model):
     
     
     id = models.PositiveIntegerField(primary_key=True, verbose_name='your adhar number ', unique=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     name = models.CharField(max_length=50)
     age = models.PositiveSmallIntegerField()
     gender = models.CharField(max_length=2, choices=GenderChoice)
